@@ -1,0 +1,78 @@
+repos:
+  # General-purpose hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-added-large-files
+      - id: check-merge-conflict
+      # - id: no-commit-to-branch
+      #   args: ["--branch", "main"]
+      - id: check-yaml
+      - id: check-json
+      - id: pretty-format-json
+        args: ["--autofix"]
+
+  # Ruff: Fast linting, combining multiple tools into one
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    rev: v0.7.3
+    hooks:
+      - id: ruff
+        language_version: python3.12
+        args:
+          - "--fix"
+          - "--select=F,E4,E7,E9,I,N,W,C,Q,B"
+          - "--extend-select=UP,T20"
+          - "--ignore=F841,UP040"
+
+  # Mypy: Static type checking
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.6.0
+    hooks:
+      - id: mypy
+        language_version: python3.12
+        args:
+          - "--config-file=pyproject.toml"
+          - "--strict"
+
+  # Local hooks (e.g., mypy, pytest, coverage)
+  - repo: local
+    hooks:
+      - id: mypy
+        name: Run mypy
+        entry: mypy
+        language: system
+        types: [python]
+        args:
+          [
+            "--config-file=pyproject.toml",
+            "--strict",
+            "--ignore-missing-imports",
+          ]
+        pass_filenames: false
+        require_serial: true
+
+      # - id: pytest
+      #   name: Run tests with pytest
+      #   entry: pytest
+      #   language: system
+      #   types: [python]
+      #   args:
+      #     [
+      #       "--cov=.",
+      #       "--cov-report=term-missing",
+      #       "--cov-report=xml",
+      #       "--cov-branch",
+      #     ]
+      #   always_run: true
+
+      # - id: coverage
+      #   name: Generate coverage report
+      #   entry: coverage
+      #   language: system
+      #   types: [python]
+      #   args: ["xml", "--fail-under=80"]
+      #   always_run: true
+      #   pass_filenames: false
+      #   require_serial: true
