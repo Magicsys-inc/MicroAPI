@@ -1,8 +1,8 @@
 {
   "recommendations": [
-      "charliermarsh.ruff",
-      "ms-python.mypy-type-checker",
-      "littlefoxteam.vscode-python-test-adapter",
-      "EditorConfig.EditorConfig"
+    "charliermarsh.ruff",
+    "ms-python.mypy-type-checker",
+    "littlefoxteam.vscode-python-test-adapter",
+    "EditorConfig.EditorConfig"
   ]
 }
