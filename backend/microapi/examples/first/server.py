@@ -1,5 +1,6 @@
 from aiohttp import web
 
+
 async def websocket_handler(request):
     ws = web.WebSocketResponse()
     await ws.prepare(request)
@@ -12,7 +13,7 @@ async def websocket_handler(request):
     return ws
 
 app = web.Application()
-app.router.add_get('/ws', websocket_handler)
+app.router.add_get("/ws", websocket_handler)
 
-if __name__ == '__main__':
-    web.run_app(app, host='localhost', port=8080)
+if __name__ == "__main__":
+    web.run_app(app, host="localhost", port=8080)
